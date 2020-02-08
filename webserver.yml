@@ -1,0 +1,32 @@
+---
+ - name: The deploy the web server
+   hosts: all
+   gather_facts: false
+   tasks:
+     - name: YUM packages install httpd
+       yum:
+         name: httpd
+         state: present
+     - name:  content depl
+       copy:
+         src: index.html
+         dest: /var/www/html/
+     - name: Service start
+       service:
+         name: httpd
+         state: restarted
+         enabled: true
+     - name: Firewalld enable checkeingi
+       firewalld:
+         service: http
+         state: enabled
+         permanent: true
+         immediate: yes
+     - name: Check that a page returns a status 200 and fail if the word AWESOME THE CODE RUNNED BY ANSIBLE is not in the page contents
+       uri:
+         url: http://node4.example.com
+         return_content: yes
+         status_code: 200
+       register: this
+       failed_when: "'AWESOME' not in this.content"
+       
