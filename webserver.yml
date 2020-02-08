@@ -22,11 +22,8 @@
          state: enabled
          permanent: true
          immediate: yes
-     - name: Check that a page returns a status 200 and fail if the word AWESOME THE CODE RUNNED BY ANSIBLE is not in the page contents
+     - name: Check that a page returns a status 200 in the page contents
        uri:
          url: http://node4.example.com
          return_content: yes
          status_code: 200
-       register: this
-       failed_when: "'AWESOME' not in this.content"
-       
