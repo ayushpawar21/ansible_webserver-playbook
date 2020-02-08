@@ -24,6 +24,6 @@
          immediate: yes
      - name: Check that a page returns a status 200 in the page contents
        uri:
-         url: http://node4.example.com
+         url: http://node4.example.com ## change_web_pages ###
          return_content: yes
          status_code: 200
